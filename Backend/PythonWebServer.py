@@ -64,7 +64,7 @@ def login():
     cnx = mysql.connector.connect(user=sql['user'], password=sql['pw'],
                               host=sql['host'],
                               database=sql['db'])
-    cursor = cnx.cursor()
+    cursor = cnx.cursor(buffered=True)
 
     user = request.args.get('user')
     pwRaw = request.args.get('pw')
@@ -75,35 +75,38 @@ def login():
     #queryData = (user)
 
 
-    if not cursor.execute(query):
-        for (Name, pw, salt) in cursor:
-            if check_password(pwRaw, pw):
-                query = ("INSERT INTO Sessions (SessionID, Name) VALUES (%s, %s)")
-                session = getRandomSessionID()
-                queryData = (session, user)
-                cursor.execute(query, queryData)
-                out = json.dumps({
-                    "error": False,
-                    "name": Name,
-                    "SessionID": session
-                })
-            else:
-                out = json.dumps({
-                    "error": True,
-                    "stacktrace": {
-                        "type": "Account",
-                        "stacktrace": "Wrong Login Infos!"
-                    }
-                })
-    else:
+    cursor.execute(query)
+    l = False
+    for (Name, pw, salt) in cursor:
+        l = True
+        if check_password(pwRaw, pw):
+            query = ("INSERT INTO Sessions (SessionID, Name) VALUES (%s, %s)")
+            session = getRandomSessionID()
+            queryData = (session, user)
+            cursor.execute(query, queryData)
+            out = json.dumps({
+                "error": False,
+                "name": Name,
+                "SessionID": session
+            })
+        else:
+            out = json.dumps({
+                "error": True,
+                "stacktrace": {
+                    "type": "Account",
+                    "stacktrace": "Wrong Login Infos!"
+                }
+            })
+    if not l:
         out = json.dumps({
         "error": True,
         "stacktrace": {
-            "type": "SQL",
-            "stacktrace": "Error in SQL Connection"
+            "type": "Account",
+            "stacktrace": "Wrong Login Infos!"
         }
-    })
+        })
 
+    
     cnx.commit()
     cursor.close()
     cnx.close()
