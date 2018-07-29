@@ -1,4 +1,4 @@
 # Crowdwash Docs
 
-### Client docs [here](/docs/Client/)
-### Backend docs [here](/docs/Backend/)
+### Client docs [here](Crowdwash/docs/Client/)
+### Backend docs [here](Crowdwash/docs/Backend/)
