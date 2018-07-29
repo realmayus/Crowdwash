@@ -145,20 +145,20 @@ def logout():
     return Response(out, mimetype="application/json")
 
 
-    if not cursor.execute(query) == None:
-        out = json.dumps({
-            "error": False,
-            "result": "Log out complete"
-        })
-    else:
-        out = json.dumps({
-            "error": True,
-            "stacktrace": {
-                "type": "Session",
-                "stacktrace": "Session is invalid"
-            }
-        })
-    
+#    if not cursor.execute(query) == None:
+#        out = json.dumps({
+#            "error": False,
+#            "result": "Log out complete"
+#        })
+#    else:
+#        out = json.dumps({
+#            "error": True,
+#            "stacktrace": {
+#                "type": "Session",
+#                "stacktrace": "Session is invalid"
+#            }
+#        })
+#    
 
 # Start Object
 if __name__ == "__main__":
