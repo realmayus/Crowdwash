@@ -5,3 +5,4 @@
 Crowdwash ist eine Dienstleistungs-sharing Plattform
 
 [Website](https://mayusyt.github.io/Crowdwash)
+[Dokumentation](https://mayusyt.github.io/Crowdwash/docs)
