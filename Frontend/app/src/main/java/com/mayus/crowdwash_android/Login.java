@@ -17,7 +17,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        Button debug = (Button)findViewById(R.id.debug);
+        Button debug = findViewById(R.id.debug);
         debug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -25,6 +25,9 @@ public class Login extends AppCompatActivity {
                 startActivity(client);
             }
         });
+        Button signin = Login.getInstance().findViewById(R.id.button3);
+
+        signin.setOnClickListener(WebContent.listener);
 
 
 
