@@ -8,9 +8,12 @@ import android.widget.Button;
 
 public class Login extends AppCompatActivity {
 
+    static Login login;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        login = this;
         setContentView(R.layout.activity_login);
 
 
@@ -24,30 +27,10 @@ public class Login extends AppCompatActivity {
         });
 
 
-        Button signin = (Button)findViewById(R.id.button3);
-        signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                System.out.println("Klick");
+    }
 
-                try {
-                    //CrowdwashUser user = WebContent.getUserFromJson(WebContent.getLoginUser("Mayus", "TallerikIstKaka"));
-                    String user = WebContent.getUserFromJson(WebContent.getLoginUser("Mayus", "TallerikIstKaka"));
-                    System.out.println(user);
-
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-
-
-
-
-
-                if(false) {
-                Intent client = new Intent(Login.this, Client.class);
-                startActivity(client);}
-            }
-        });
+    public static Login getInstance() {
+        return login;
     }
 }
