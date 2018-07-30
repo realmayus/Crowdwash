@@ -10,7 +10,7 @@
     android:background="#ffffff"
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/debug"
         android:layout_width="578px"
         android:layout_height="122px"
         android:layout_alignParentTop="true"

@@ -13,7 +13,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        /**
+
         Button debug = (Button)findViewById(R.id.debug);
         debug.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -21,7 +21,7 @@ public class Login extends AppCompatActivity {
                 Intent client = new Intent(Login.this, Client.class);
                 startActivity(client);
             }
-        }); **/
+        });
 
 
         Button signin = (Button)findViewById(R.id.button3);
