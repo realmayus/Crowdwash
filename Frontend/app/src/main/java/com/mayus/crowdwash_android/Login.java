@@ -3,12 +3,16 @@ package com.mayus.crowdwash_android;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -27,7 +31,9 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         login = this;
         setContentView(R.layout.activity_login);
-
+        ((ProgressBar)findViewById(R.id.progress)).setVisibility(View.INVISIBLE);
+        //findViewById(R.id.p).setVisibility(View.GONE);
+        setHeaderHeight();
 
         TextView debug = findViewById(R.id.debug);
         debug.setOnClickListener(new View.OnClickListener() {
@@ -45,7 +51,14 @@ public class Login extends AppCompatActivity {
                     System.out.println("Klick!");
                     //...
                     try {
+
                         //CrowdwashUser user = WebContent.getUserFromJson(WebContent.getLoginUser("Mayus", "TallerikIstKaka"));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                findViewById(R.id.progress).setVisibility(View.VISIBLE);
+                            }
+                        });
                         WebContent web = new WebContent();
                         JSONObject user = web.getUserFromJson(((EditText)findViewById(R.id.editText4)).getText().toString(), ((EditText)findViewById(R.id.editText3)).getText().toString());
                         loginstatus = user;
@@ -68,7 +81,12 @@ public class Login extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            findViewById(R.id.progress).setVisibility(View.INVISIBLE);
+                        }
+                    });
                     /*
                         Intent client = new Intent(Login.getInstance(), Client.class);
                         Login.getInstance().startActivity(client);
@@ -107,5 +125,16 @@ public class Login extends AppCompatActivity {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    public void setHeaderHeight() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        height = height / 5 * 2;
+        ((ImageView)findViewById(R.id.imageView)).setMinimumHeight(height);
+
     }
 }
