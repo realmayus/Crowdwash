@@ -59,14 +59,12 @@ public class WebContent extends AsyncTask<URL, Integer, JSONObject> {
                 return obj.getString("SessionID");
             }**/
 
-            public String getUserFromJson(String name, String pw) throws Exception {
+            public JSONObject getUserFromJson(String name, String pw) throws Exception {
                 JSONObject data = new WebContent().execute(new URL("http://tallerikyt.ddns.net:5000/login?user=" + name + "&pw=" + pw), null, null).get();
                 Log.d("From server" , data.toString());
-                if (data.getBoolean("error")) {
-                    return "";
-                } else {
-                    return data.getString("SessionID");
-                }
+
+                return data;
+
             }
 
 
